@@ -12,29 +12,21 @@ import { Suspense } from "react";
 
 const DynamicMap = dynamic(() => import('../components/map'), {
   ssr: false,
-  loading: () => <p>A map is loading</p>,
+  loading: () => <div className="flex h-full items-center justify-center p-6">
+    <p className="font-semibold">The map is loading...</p>
+  </div>,
 })
 
 export default function Home() {
-  /*return (
-    <div>
-    <header>
-      <TopBar />
-    </header>
-    <main className="">
-      <Button>Test</Button>
-    </main>
-    </div>
-  );*/
   return (
     <ResizablePanelGroup direction="horizontal" className="w-full h-full">
       <ResizablePanel defaultSize={25}>
-        <div className="flex h-screen">
-          <header>
+        <div className="flex h-screen w-full flex-col">
+          <header className="w-full">
             <TopBar />
           </header>
           <main>
-            
+            <h1>Detials</h1>
           </main>
         </div>
       </ResizablePanel>
