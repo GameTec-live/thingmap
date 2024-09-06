@@ -86,3 +86,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.leaflet-layer:is(.dark *), .leaflet-control-zoom-in:is(.dark *), .leaflet-control-zoom-out:is(.dark *), .leaflet-control-attribution:is(.dark *) {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
