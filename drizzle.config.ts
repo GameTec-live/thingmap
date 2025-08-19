@@ -1,0 +1,12 @@
+import "dotenv/config";
+import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+    out: "./drizzle",
+    schema: "./lib/db/schema",
+    dialect: "sqlite",
+    dbCredentials: {
+        // biome-ignore lint/style/noNonNullAssertion: This is a env var, its fine
+        url: process.env.DB_FILE_NAME!,
+    },
+});
