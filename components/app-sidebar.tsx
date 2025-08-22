@@ -1,16 +1,7 @@
 "use client";
 
-import {
-    BookOpen,
-    Bot,
-    Frame,
-    PieChart,
-    Settings2,
-    SquareTerminal,
-} from "lucide-react";
+import { OctagonAlert } from "lucide-react";
 import type React from "react";
-import { NavMain } from "@/components/nav-main";
-import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import {
     Sidebar,
@@ -19,127 +10,68 @@ import {
     SidebarHeader,
     SidebarRail,
 } from "@/components/ui/sidebar";
-import type { MapQueryResult } from "@/lib/db/queries/map";
+import { authClient } from "@/lib/auth-client";
+import type { GetAllOwnedMapsQueryResult } from "@/lib/db/queries/createdmaps";
+import type { GetFavoritesOfUserQueryResult } from "@/lib/db/queries/favourites";
+import type { GetAllMapsQueryResult } from "@/lib/db/queries/map";
 import { MapSwitcher } from "./map-switcher";
-
-// This is sample data.
-const data = {
-    navMain: [
-        {
-            title: "Playground",
-            url: "#",
-            icon: SquareTerminal,
-            isActive: true,
-            items: [
-                {
-                    title: "History",
-                    url: "#",
-                },
-                {
-                    title: "Starred",
-                    url: "#",
-                },
-                {
-                    title: "Settings",
-                    url: "#",
-                },
-            ],
-        },
-        {
-            title: "Models",
-            url: "#",
-            icon: Bot,
-            items: [
-                {
-                    title: "Genesis",
-                    url: "#",
-                },
-                {
-                    title: "Explorer",
-                    url: "#",
-                },
-                {
-                    title: "Quantum",
-                    url: "#",
-                },
-            ],
-        },
-        {
-            title: "Documentation",
-            url: "#",
-            icon: BookOpen,
-            items: [
-                {
-                    title: "Introduction",
-                    url: "#",
-                },
-                {
-                    title: "Get Started",
-                    url: "#",
-                },
-                {
-                    title: "Tutorials",
-                    url: "#",
-                },
-                {
-                    title: "Changelog",
-                    url: "#",
-                },
-            ],
-        },
-        {
-            title: "Settings",
-            url: "#",
-            icon: Settings2,
-            items: [
-                {
-                    title: "General",
-                    url: "#",
-                },
-                {
-                    title: "Team",
-                    url: "#",
-                },
-                {
-                    title: "Billing",
-                    url: "#",
-                },
-                {
-                    title: "Limits",
-                    url: "#",
-                },
-            ],
-        },
-    ],
-    projects: [
-        {
-            name: "Design Engineering",
-            url: "#",
-            icon: Frame,
-        },
-        {
-            name: "Sales & Marketing",
-            url: "#",
-            icon: PieChart,
-        },
-    ],
-};
+import { NavFavourites } from "./nav-entries/nav-favourites";
+import { NavYourMaps } from "./nav-entries/nav-your-maps";
+import { Button } from "./ui/button";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "./ui/card";
 
 export function AppSidebar({
     maps,
     currentMapId,
+    favorites,
+    createdMaps,
     ...props
-}: { maps: MapQueryResult; currentMapId: string } & React.ComponentProps<
-    typeof Sidebar
->) {
+}: {
+    maps: GetAllMapsQueryResult;
+    currentMapId: string;
+    favorites: GetFavoritesOfUserQueryResult;
+    createdMaps: GetAllOwnedMapsQueryResult;
+} & React.ComponentProps<typeof Sidebar>) {
+    const currentMap = maps.find((map) => map.id === currentMapId);
+
+    const { data: session } = authClient.useSession();
+
     return (
-        <Sidebar collapsible="icon" {...props}>
-            <SidebarHeader className="flex flex-row items-center">
+        <Sidebar {...props}>
+            <SidebarHeader>
                 <MapSwitcher maps={maps} currentMapId={currentMapId} />
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Info about {currentMap?.name}</CardTitle>
+                        <CardDescription>
+                            Created by {currentMap?.username}
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <p>{currentMap?.description}</p>
+                    </CardContent>
+                    <CardFooter className="flex flex-row justify-between">
+                        <Button variant="outline" size="icon">
+                            <OctagonAlert />
+                        </Button>
+                        <Button>Add a pin</Button>
+                    </CardFooter>
+                </Card>
             </SidebarHeader>
             <SidebarContent>
-                <NavMain items={data.navMain} />
-                <NavProjects projects={data.projects} />
+                {session && (
+                    <>
+                        <NavFavourites favorites={favorites} />
+                        <NavYourMaps createdMaps={createdMaps} />
+                    </>
+                )}
             </SidebarContent>
             <SidebarFooter>
                 <NavUser />

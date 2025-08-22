@@ -16,13 +16,13 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@/components/ui/sidebar";
-import type { MapQueryResult } from "@/lib/db/queries/map";
+import type { GetAllMapsQueryResult } from "@/lib/db/queries/map";
 
 export function MapSwitcher({
     maps,
     currentMapId,
 }: {
-    maps: MapQueryResult;
+    maps: GetAllMapsQueryResult;
     currentMapId: string;
 }) {
     const { isMobile } = useSidebar();
@@ -39,7 +39,7 @@ export function MapSwitcher({
                             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                         >
                             {/* <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                                <activeTeam.logo className="size-4" />
+                                <GalleryHorizontal className="size-4" />
                             </div> */}
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-medium">
@@ -64,7 +64,7 @@ export function MapSwitcher({
                             Maps
                         </DropdownMenuLabel>
                         {maps.map((map) => (
-                            <Link key={map.id} href={`/maps/${map.id}`}>
+                            <Link key={map.id} href={`/map/${map.id}`}>
                                 <DropdownMenuItem
                                     key={map.id}
                                     className="gap-2 p-2"
