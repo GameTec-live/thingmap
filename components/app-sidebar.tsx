@@ -1,7 +1,10 @@
 "use client";
 
 import { OctagonAlert, Star } from "lucide-react";
+import { useRouter } from "next/navigation";
 import type React from "react";
+import { useTransition } from "react";
+import { toast } from "sonner";
 import { NavUser } from "@/components/nav-user";
 import {
     Sidebar,
@@ -13,8 +16,8 @@ import {
 import { authClient } from "@/lib/auth-client";
 import type { GetAllOwnedMapsQueryResult } from "@/lib/db/queries/createdmaps";
 import {
-    toggleFavoriteMap,
     type GetFavoritesOfUserQueryResult,
+    toggleFavoriteMap,
 } from "@/lib/db/queries/favourites";
 import type { GetAllMapsQueryResult } from "@/lib/db/queries/map";
 import { MapSwitcher } from "./map-switcher";
@@ -29,9 +32,6 @@ import {
     CardHeader,
     CardTitle,
 } from "./ui/card";
-import { useTransition } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 export function AppSidebar({
     maps,
