@@ -96,6 +96,7 @@ export const pin = sqliteTable("pin", {
     creatorId: text()
         .notNull()
         .references(() => user.id),
+    address: text(),
     latitude: real().notNull(),
     longitude: real().notNull(),
 });

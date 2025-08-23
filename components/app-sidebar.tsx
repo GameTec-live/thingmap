@@ -1,6 +1,6 @@
 "use client";
 
-import { OctagonAlert } from "lucide-react";
+import { OctagonAlert, Star } from "lucide-react";
 import type React from "react";
 import { NavUser } from "@/components/nav-user";
 import {
@@ -12,7 +12,10 @@ import {
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
 import type { GetAllOwnedMapsQueryResult } from "@/lib/db/queries/createdmaps";
-import type { GetFavoritesOfUserQueryResult } from "@/lib/db/queries/favourites";
+import {
+    toggleFavoriteMap,
+    type GetFavoritesOfUserQueryResult,
+} from "@/lib/db/queries/favourites";
 import type { GetAllMapsQueryResult } from "@/lib/db/queries/map";
 import { MapSwitcher } from "./map-switcher";
 import { NavFavourites } from "./nav-entries/nav-favourites";
@@ -26,6 +29,9 @@ import {
     CardHeader,
     CardTitle,
 } from "./ui/card";
+import { useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function AppSidebar({
     maps,
@@ -42,6 +48,22 @@ export function AppSidebar({
     const currentMap = maps.find((map) => map.id === currentMapId);
 
     const { data: session } = authClient.useSession();
+    const [isPending, startTransition] = useTransition();
+    const router = useRouter();
+
+    const isMapFavorited = favorites.some(
+        (favMap) =>
+            favMap.mapId === currentMapId && favMap.includedBecause !== "pin",
+    );
+
+    const favoriteMap = (mapId: string | undefined) => {
+        if (!mapId) return;
+        startTransition(async () => {
+            const removed = await toggleFavoriteMap(mapId);
+            toast(removed ? "Map unfavorited!" : "Map favorited!");
+            router.refresh();
+        });
+    };
 
     return (
         <Sidebar {...props}>
@@ -49,7 +71,7 @@ export function AppSidebar({
                 <MapSwitcher maps={maps} currentMapId={currentMapId} />
                 <Card>
                     <CardHeader>
-                        <CardTitle>Info about {currentMap?.name}</CardTitle>
+                        <CardTitle>Info about {currentMap?.name} </CardTitle>
                         <CardDescription>
                             Created by {currentMap?.username}
                         </CardDescription>
@@ -58,9 +80,22 @@ export function AppSidebar({
                         <p>{currentMap?.description}</p>
                     </CardContent>
                     <CardFooter className="flex flex-row justify-between">
-                        <Button variant="outline" size="icon">
-                            <OctagonAlert />
-                        </Button>
+                        <div>
+                            <Button
+                                variant={"outline"}
+                                size={"icon"}
+                                className="mr-2 p-0"
+                                onClick={() => favoriteMap(currentMap?.id)}
+                                disabled={!session || isPending}
+                            >
+                                <Star
+                                    fill={isMapFavorited ? "white" : "none"}
+                                />
+                            </Button>
+                            <Button variant="outline" size="icon">
+                                <OctagonAlert />
+                            </Button>
+                        </div>
                         <Button>Add a pin</Button>
                     </CardFooter>
                 </Card>

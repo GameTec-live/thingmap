@@ -1,4 +1,5 @@
 import { headers } from "next/headers";
+import { Suspense } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
     Breadcrumb,
@@ -19,7 +20,6 @@ import { getAllOwnedMaps } from "@/lib/db/queries/createdmaps";
 import { getFavoritesOfUser } from "@/lib/db/queries/favourites";
 import { getAllMaps } from "@/lib/db/queries/map";
 import { TheMap } from "./themap";
-import { Suspense } from "react";
 
 export async function MainSidebar({ currentMapId }: { currentMapId: string }) {
     const maps = await getAllMaps();
@@ -66,7 +66,10 @@ export async function MainSidebar({ currentMapId }: { currentMapId: string }) {
                 </header>
                 <div className="flex flex-1 flex-col gap-4">
                     <Suspense fallback={<div>Loading...</div>}>
-                        <TheMap currentMapId={currentMapId} />
+                        <TheMap
+                            currentMapId={currentMapId}
+                            favouritePins={favorites}
+                        />
                     </Suspense>
                 </div>
             </SidebarInset>
