@@ -98,7 +98,6 @@ export async function newFavoritePin(pinId: string) {
     }
 
     await db.insert(favoritePin).values({
-        id: crypto.randomUUID(),
         pinId,
         userId: session.user.id,
     });
@@ -113,7 +112,6 @@ export async function newFavoriteMap(mapId: string) {
     }
 
     await db.insert(favoriteMap).values({
-        id: crypto.randomUUID(),
         mapId,
         userId: session.user.id,
     });

@@ -36,7 +36,6 @@ export async function createNewMap(data: z.infer<typeof createmapformSchema>) {
     const newMap = await db
         .insert(map)
         .values({
-            id: crypto.randomUUID(),
             name: data.name,
             description: data.description,
             public: data.public,
