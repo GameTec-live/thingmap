@@ -1,9 +1,9 @@
 import {
+    boolean,
+    doublePrecision,
     pgTable,
     text,
     timestamp,
-    boolean,
-    doublePrecision,
     uuid,
 } from "drizzle-orm/pg-core";
 
