@@ -22,6 +22,7 @@ import {
 import type { GetAllMapsQueryResult } from "@/lib/db/queries/map";
 import { MapSwitcher } from "./map-switcher";
 import { NavFavourites } from "./nav-entries/nav-favourites";
+import { NavNewMap } from "./nav-entries/nav-new-map";
 import { NavYourMaps } from "./nav-entries/nav-your-maps";
 import { Button } from "./ui/button";
 import {
@@ -105,6 +106,7 @@ export function AppSidebar({
                     <>
                         <NavFavourites favorites={favorites} />
                         <NavYourMaps createdMaps={createdMaps} />
+                        <NavNewMap />
                     </>
                 )}
             </SidebarContent>

@@ -1,5 +1,4 @@
 import { headers } from "next/headers";
-import { Suspense } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
     Breadcrumb,
@@ -20,9 +19,14 @@ import { getAllOwnedMaps } from "@/lib/db/queries/createdmaps";
 import { getFavoritesOfUser } from "@/lib/db/queries/favourites";
 import { getAllMaps } from "@/lib/db/queries/map";
 import { ModeToggle } from "./mode-toggle";
-import { TheMap } from "./themap";
 
-export async function MainSidebar({ currentMapId }: { currentMapId: string }) {
+export async function NoMapSidebar({
+    page,
+    children,
+}: Readonly<{
+    page: string;
+    children: React.ReactNode;
+}>) {
     const maps = await getAllMaps();
 
     const session = await auth.api.getSession({
@@ -35,7 +39,7 @@ export async function MainSidebar({ currentMapId }: { currentMapId: string }) {
     return (
         <SidebarProvider>
             <AppSidebar
-                currentMapId={currentMapId}
+                currentMapId={process.env.MAP_HOMEMAPID ?? "1"}
                 maps={maps}
                 favorites={favorites}
                 createdMaps={createdMaps}
@@ -62,26 +66,14 @@ export async function MainSidebar({ currentMapId }: { currentMapId: string }) {
                                 </BreadcrumbItem>
                                 <BreadcrumbSeparator className="hidden md:block" />
                                 <BreadcrumbItem>
-                                    <BreadcrumbPage>
-                                        {
-                                            maps.find(
-                                                (map) =>
-                                                    map.id === currentMapId,
-                                            )?.name
-                                        }
-                                    </BreadcrumbPage>
+                                    <BreadcrumbPage>{page}</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
                     </div>
                 </header>
-                <div className="flex flex-1 flex-col gap-4">
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <TheMap
-                            currentMapId={currentMapId}
-                            favouritePins={favorites}
-                        />
-                    </Suspense>
+                <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+                    {children}
                 </div>
             </SidebarInset>
         </SidebarProvider>

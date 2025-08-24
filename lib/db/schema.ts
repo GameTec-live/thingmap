@@ -68,6 +68,7 @@ export const map = sqliteTable("map", {
     id: text().primaryKey(),
     name: text().notNull(),
     description: text(),
+    public: integer({ mode: "boolean" }).notNull().default(true),
     createdAt: integer({ mode: "timestamp" }).$defaultFn(
         () => /* @__PURE__ */ new Date(),
     ),

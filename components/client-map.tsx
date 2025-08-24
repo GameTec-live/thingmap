@@ -49,7 +49,7 @@ export function ClientMap({
         if (!pinId) return;
         startTransition(async () => {
             const removed = await toggleFavoritePin(pinId);
-            toast(removed ? "Pin unfavorited!" : "Pin favorited!");
+            toast.success(removed ? "Pin unfavorited!" : "Pin favorited!");
             router.refresh();
         });
     };

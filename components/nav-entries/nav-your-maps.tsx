@@ -55,17 +55,29 @@ export function NavYourMaps({
                                 <SidebarMenuSub>
                                     <SidebarMenuSubItem>
                                         <SidebarMenuSubButton asChild>
-                                            <span>Locations</span>
+                                            <Link
+                                                href={`/map/${map.id}/locations`}
+                                            >
+                                                <span>Locations</span>
+                                            </Link>
                                         </SidebarMenuSubButton>
                                     </SidebarMenuSubItem>
                                     <SidebarMenuSubItem>
                                         <SidebarMenuSubButton asChild>
-                                            <span>Suggestions</span>
+                                            <Link
+                                                href={`/map/${map.id}/suggestions`}
+                                            >
+                                                <span>Suggestions</span>
+                                            </Link>
                                         </SidebarMenuSubButton>
                                     </SidebarMenuSubItem>
                                     <SidebarMenuSubItem>
                                         <SidebarMenuSubButton asChild>
-                                            <span>Settings</span>
+                                            <Link
+                                                href={`/map/${map.id}/settings`}
+                                            >
+                                                <span>Settings</span>
+                                            </Link>
                                         </SidebarMenuSubButton>
                                     </SidebarMenuSubItem>
                                 </SidebarMenuSub>
