@@ -1,12 +1,23 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type { z } from "zod";
 import { authClient } from "@/lib/auth-client";
+import { createPin } from "@/lib/db/queries/pins";
+import { type AddressSuggestion, getAddressSuggestions } from "@/lib/geocoding";
 import { Button } from "../ui/button";
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+} from "../ui/command";
 import {
     Form,
     FormControl,
@@ -18,17 +29,6 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { createpinformSchema } from "./createpinform-schema";
-import { getAddressSuggestions, type AddressSuggestion } from "@/lib/geocoding";
-import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-} from "../ui/command";
-import { Loader2, MapPin } from "lucide-react";
-import { createPin } from "@/lib/db/queries/pins";
 
 type FormValues = z.infer<typeof createpinformSchema>;
 

@@ -1,9 +1,9 @@
 "use server";
 import { and, eq } from "drizzle-orm";
-import { db } from "@/lib";
-import { map, pin, user } from "../schema";
-import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { db } from "@/lib";
+import { auth } from "@/lib/auth";
+import { map, pin, user } from "../schema";
 
 export async function getPinsByMapId(mapId: string) {
     const pins = await db

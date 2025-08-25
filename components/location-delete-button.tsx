@@ -1,11 +1,11 @@
 "use client";
 import { Trash2 } from "lucide-react";
-import { Button } from "./ui/button";
-import { authClient } from "@/lib/auth-client";
-import { useTransition } from "react";
-import { deletePin } from "@/lib/db/queries/pins";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { toast } from "sonner";
+import { authClient } from "@/lib/auth-client";
+import { deletePin } from "@/lib/db/queries/pins";
+import { Button } from "./ui/button";
 
 export default function LocationDeleteButton({
     pinId,

@@ -1,7 +1,7 @@
+import { Suspense } from "react";
 import { CreatePinButton } from "@/components/createpinform/createbutton";
 import { LocationTable } from "@/components/location-table";
 import { NoMapSidebar } from "@/components/nomapsidebar";
-import { Suspense } from "react";
 
 export default async function LocationsPage({
     params,

@@ -123,18 +123,23 @@ export function ClientMap({
                             </a>
                         ) : null}
                         <div>
-                            <a
-                                className="underline flex flex-row gap-1 items-center"
-                                href={selectedPin?.link ?? undefined}
-                                target="_blank"
-                            >
-                                {selectedPin?.link}
-                                <ExternalLink size={16} />
-                            </a>
-                            <p className="text-xs text-muted-foreground">
-                                This is a user provided external link. Be
-                                careful.
-                            </p>
+                            {selectedPin?.link && (
+                                <>
+                                    <a
+                                        className="underline flex flex-row gap-1 items-center"
+                                        href={selectedPin?.link ?? undefined}
+                                        target="_blank"
+                                    >
+                                        {selectedPin?.link}
+                                        <ExternalLink size={16} />
+                                    </a>
+
+                                    <p className="text-xs text-muted-foreground">
+                                        This is a user provided external link.
+                                        Be careful.
+                                    </p>
+                                </>
+                            )}
                         </div>
                     </div>
                 </SheetContent>

@@ -1,9 +1,9 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import { CreateMapForm } from "@/components/createmapform/createmapform";
 import { NoMapSidebar } from "@/components/nomapsidebar";
 import { auth } from "@/lib/auth";
-import { Suspense } from "react";
 
 export default async function Page() {
     const session = await auth.api.getSession({
