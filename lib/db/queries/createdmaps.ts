@@ -34,6 +34,10 @@ export async function createNewMap(data: z.infer<typeof createmapformSchema>) {
         throw new Error("No session found");
     }
 
+    if (process.env.MAP_DISABLEMAPCREATION === "true") {
+        throw new Error("Map creation is disabled");
+    }
+
     const newMap = await db
         .insert(map)
         .values({

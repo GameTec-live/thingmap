@@ -39,12 +39,14 @@ export function AppSidebar({
     currentMapId,
     favorites,
     createdMaps,
+    allowMapCreation,
     ...props
 }: {
     maps: GetAllMapsQueryResult;
     currentMapId: string;
     favorites: GetFavoritesOfUserQueryResult;
     createdMaps: GetAllOwnedMapsQueryResult;
+    allowMapCreation: boolean;
 } & React.ComponentProps<typeof Sidebar>) {
     const currentMap = maps.find((map) => map.id === currentMapId);
 
@@ -106,7 +108,7 @@ export function AppSidebar({
                     <>
                         <NavFavourites favorites={favorites} />
                         <NavYourMaps createdMaps={createdMaps} />
-                        <NavNewMap />
+                        {allowMapCreation && <NavNewMap />}
                     </>
                 )}
             </SidebarContent>
