@@ -173,10 +173,12 @@ export function NavUser() {
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <Settings />
-                                Settings
-                            </DropdownMenuItem>
+                            <Link href="/settings">
+                                <DropdownMenuItem>
+                                    <Settings />
+                                    Settings
+                                </DropdownMenuItem>
+                            </Link>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={signOut}>
