@@ -12,6 +12,8 @@ export async function getMapById(id: string) {
             name: map.name,
             description: map.description,
             username: user.name,
+            ownerId: map.ownerId,
+            public: map.public,
         })
         .from(map)
         .where(eq(map.id, id))
@@ -49,4 +51,5 @@ export async function getAllMaps() {
 }
 
 export type GetMapByIdQueryResult = Awaited<ReturnType<typeof getMapById>>;
+export type SingleMap = GetMapByIdQueryResult[number];
 export type GetAllMapsQueryResult = Awaited<ReturnType<typeof getAllMaps>>;

@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type { z } from "zod";
 import { authClient } from "@/lib/auth-client";
-import { createNewMap } from "@/lib/db/queries/createdmaps";
+import { updateMap } from "@/lib/db/queries/createdmaps";
+import type { SingleMap } from "@/lib/db/queries/map";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 import {
@@ -19,15 +20,15 @@ import {
     FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { createmapformSchema } from "./createmapform-schema";
+import { editmapformSchema } from "./editmapform-schema";
 
-export function CreateMapForm() {
-    const form = useForm<z.infer<typeof createmapformSchema>>({
-        resolver: zodResolver(createmapformSchema),
+export function EditMapForm({ map }: { map: SingleMap }) {
+    const form = useForm<z.infer<typeof editmapformSchema>>({
+        resolver: zodResolver(editmapformSchema),
         defaultValues: {
-            name: "",
-            description: "",
-            public: true,
+            name: map.name,
+            description: map.description ?? undefined,
+            public: map.public,
         },
     });
 
@@ -35,17 +36,20 @@ export function CreateMapForm() {
     const router = useRouter();
     const { data: session } = authClient.useSession();
 
-    const onSubmit = (values: z.infer<typeof createmapformSchema>) => {
+    const onSubmit = (values: z.infer<typeof editmapformSchema>) => {
         startTransition(async () => {
-            const id = await createNewMap(values);
+            await updateMap(map.id, values);
             router.refresh();
-            toast.success("Map created successfully!");
-            router.push(`/map/${id}`);
+            toast.success("Map updated successfully!");
         });
     };
 
     if (!session) {
-        return <div>You must be logged in to create a map.</div>;
+        return <div>You must be logged in to edit a map.</div>;
+    }
+
+    if (session.user.id !== map.ownerId) {
+        return <div>You are not authorized to edit this map.</div>;
     }
 
     return (
@@ -113,7 +117,7 @@ export function CreateMapForm() {
                     )}
                 />
                 <Button type="submit" disabled={isPending}>
-                    Create Map
+                    Update Map
                 </Button>
             </form>
         </Form>

@@ -1,7 +1,7 @@
 "use client";
 import { z } from "zod";
 
-export const createpinformSchema = z.object({
+export const editpinformSchema = z.object({
     title: z.string().min(1, "Pin title is required"),
     description: z.string().optional(),
     link: z.union([z.url().optional(), z.literal("")]),

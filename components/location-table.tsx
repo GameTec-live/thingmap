@@ -9,6 +9,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { getPinsByMapId } from "@/lib/db/queries/pins";
+import EditPinButton from "./editpinform/editbutton";
 import LocationDeleteButton from "./location-delete-button";
 
 export async function LocationTable({ mapId }: { mapId: string }) {
@@ -68,6 +69,7 @@ export async function LocationTable({ mapId }: { mapId: string }) {
                                 )}
                             </TableCell>
                             <TableCell>
+                                <EditPinButton pin={pin} />
                                 <LocationDeleteButton
                                     pinId={pin.id}
                                     ownerId={pin.ownerId}

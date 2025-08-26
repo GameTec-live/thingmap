@@ -56,7 +56,10 @@ export function ClientMap({
 
     return (
         <>
-            <MapLibre mapStyle="https://tiles.openfreemap.org/styles/liberty">
+            <MapLibre
+                mapStyle="https://tiles.openfreemap.org/styles/liberty"
+                attributionControl={false}
+            >
                 {pins.map((pin) => (
                     <Marker
                         onClick={() => {

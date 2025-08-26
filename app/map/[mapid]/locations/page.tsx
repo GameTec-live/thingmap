@@ -12,7 +12,7 @@ export default async function LocationsPage({
 
     return (
         <Suspense fallback={<div>Loading...</div>}>
-            <NoMapSidebar page="New Pin">
+            <NoMapSidebar page="Map Pins">
                 <div className="flex flex-row justify-between">
                     <h1 className="text-2xl">Locations</h1>
                     <CreatePinButton mapId={mapid} />
