@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { OctagonAlert } from "lucide-react";
 import { useState } from "react";
 import {
     Dialog,
@@ -8,8 +8,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "../ui/button";
 import { SuggestPinForm } from "./suggestpinform";
-import { OctagonAlert } from "lucide-react";
 export function CorrectIssueButton({ mapId }: { mapId: string | undefined }) {
     const [open, setOpen] = useState(false);
 

@@ -1,9 +1,8 @@
 "use server";
-import { and, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { db } from "@/lib";
 import { auth } from "@/lib/auth";
-import { map, pin, user, suggestion } from "../schema";
+import { suggestion } from "../schema";
 
 export async function submitPinSuggestion(data: {
     title: string;

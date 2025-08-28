@@ -7,9 +7,10 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type { z } from "zod";
 import { authClient } from "@/lib/auth-client";
-import { createPin } from "@/lib/db/queries/pins";
+import { submitPinSuggestion } from "@/lib/db/queries/suggestions";
 import { type AddressSuggestion, getAddressSuggestions } from "@/lib/geocoding";
 import { Button } from "../ui/button";
+import { Checkbox } from "../ui/checkbox";
 import {
     Command,
     CommandEmpty,
@@ -29,8 +30,6 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { suggestpinformSchema } from "./suggestpinform-schema";
-import { Checkbox } from "../ui/checkbox";
-import { submitPinSuggestion } from "@/lib/db/queries/suggestions";
 
 type FormValues = z.infer<typeof suggestpinformSchema>;
 

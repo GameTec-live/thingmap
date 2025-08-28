@@ -1,4 +1,3 @@
-import { Button } from "../ui/button";
 import { useState } from "react";
 import {
     Dialog,
@@ -8,6 +7,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "../ui/button";
 import { SuggestPinForm } from "./suggestpinform";
 export function AddPinButton({ mapId }: { mapId: string | undefined }) {
     const [open, setOpen] = useState(false);

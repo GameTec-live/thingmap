@@ -1,6 +1,6 @@
 "use client";
 
-import { OctagonAlert, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useTransition } from "react";
@@ -20,6 +20,8 @@ import {
     toggleFavoriteMap,
 } from "@/lib/db/queries/favourites";
 import type { GetAllMapsQueryResult } from "@/lib/db/queries/map";
+import { CorrectIssueButton } from "./createsuggestionform/add-issue-button";
+import { AddPinButton } from "./createsuggestionform/add-pin-button";
 import { MapSwitcher } from "./map-switcher";
 import { NavFavourites } from "./nav-entries/nav-favourites";
 import { NavNewMap } from "./nav-entries/nav-new-map";
@@ -33,8 +35,6 @@ import {
     CardHeader,
     CardTitle,
 } from "./ui/card";
-import { AddPinButton } from "./createsuggestionform/add-pin-button";
-import { CorrectIssueButton } from "./createsuggestionform/add-issue-button";
 
 export function AppSidebar({
     maps,
