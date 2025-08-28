@@ -50,7 +50,7 @@ export function LoginForm({
     const signInGithub = async () => {
         await authClient.signIn.social({
             provider: "github",
-            callbackURL: "/dashboard",
+            callbackURL: "/",
         });
     };
 
