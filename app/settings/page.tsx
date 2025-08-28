@@ -21,11 +21,14 @@ export default async function SettingsPage() {
                     <h1 className="text-2xl">Settings</h1>
                 </div>
                 <UserDetails />
-                <div>
-                    <a href="https://github.com/GameTec-live/thingmap">
+                <div className="flex flex-row gap-2">
+                    <a
+                        href="https://github.com/GameTec-live/thingmap"
+                        className="text-muted-foreground underline"
+                    >
                         Powered by Thingmap
                     </a>
-                    <p>AGPLV3 licensed</p>
+                    <p className="text-muted-foreground">AGPLV3 licensed</p>
                 </div>
             </NoMapSidebar>
         </Suspense>
