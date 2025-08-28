@@ -33,6 +33,8 @@ import {
     CardHeader,
     CardTitle,
 } from "./ui/card";
+import { AddPinButton } from "./createsuggestionform/add-pin-button";
+import { CorrectIssueButton } from "./createsuggestionform/add-issue-button";
 
 export function AppSidebar({
     maps,
@@ -95,11 +97,9 @@ export function AppSidebar({
                                     fill={isMapFavorited ? "white" : "none"}
                                 />
                             </Button>
-                            <Button variant="outline" size="icon">
-                                <OctagonAlert />
-                            </Button>
+                            <CorrectIssueButton mapId={currentMap?.id} />
                         </div>
-                        <Button>Add a pin</Button>
+                        <AddPinButton mapId={currentMap?.id} />
                     </CardFooter>
                 </Card>
             </SidebarHeader>

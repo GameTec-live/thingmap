@@ -139,9 +139,7 @@ export const favoriteMap = pgTable("favoriteMap", {
 
 export const suggestion = pgTable("suggestion", {
     id: uuid().primaryKey().defaultRandom(),
-    userId: text()
-        .notNull()
-        .references(() => user.id, { onDelete: "cascade" }),
+    userId: text().references(() => user.id, { onDelete: "cascade" }),
     mapId: uuid()
         .notNull()
         .references(() => map.id, { onDelete: "cascade" }),
