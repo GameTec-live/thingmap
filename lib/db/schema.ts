@@ -146,6 +146,7 @@ export const suggestion = pgTable("suggestion", {
     title: text().notNull(),
     description: text(),
     link: text(),
+    address: text(),
     latitude: doublePrecision().notNull(),
     longitude: doublePrecision().notNull(),
     isIssue: boolean().notNull(),
