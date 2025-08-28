@@ -21,6 +21,12 @@ export default async function SettingsPage() {
                     <h1 className="text-2xl">Settings</h1>
                 </div>
                 <UserDetails />
+                <div>
+                    <a href="https://github.com/GameTec-live/thingmap">
+                        Powered by Thingmap
+                    </a>
+                    <p>AGPLV3 licensed</p>
+                </div>
             </NoMapSidebar>
         </Suspense>
     );
