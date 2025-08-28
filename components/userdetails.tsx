@@ -39,6 +39,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 import { authClient } from "@/lib/auth-client";
 
 export default function UserDetails() {
@@ -47,10 +48,10 @@ export default function UserDetails() {
     if (isPending) {
         return (
             <div className="grid gap-6">
-                <div className="h-8 w-48 bg-muted animate-pulse rounded" />
+                <Skeleton className="h-8 w-48" />
                 <div className="grid md:grid-cols-2 gap-6">
-                    <div className="h-64 bg-muted animate-pulse rounded" />
-                    <div className="h-64 bg-muted animate-pulse rounded" />
+                    <Skeleton className="h-64" />
+                    <Skeleton className="h-64" />
                 </div>
             </div>
         );
@@ -544,7 +545,7 @@ function DangerZone({ user }: { user: User }) {
         mode: "onTouched",
     });
 
-    async function onSubmit(_: z.infer<typeof DeleteSchema>) {
+    async function onSubmit() {
         await authClient.deleteUser();
         await authClient.signOut?.();
         toast.success("Account deleted");

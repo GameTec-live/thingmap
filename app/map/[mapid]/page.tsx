@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { MainSidebar } from "@/components/mainsidebar";
+import { MainSidebarSkeleton } from "@/components/skeletons";
 
 export default async function MapPage({
     params,
@@ -9,7 +10,7 @@ export default async function MapPage({
     const { mapid } = await params;
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<MainSidebarSkeleton />}>
             <MainSidebar currentMapId={mapid} />
         </Suspense>
     );

@@ -2,6 +2,10 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { NoMapSidebar } from "@/components/nomapsidebar";
+import {
+    NoMapSidebarShellSkeleton,
+    SuggestionsTableSkeleton,
+} from "@/components/skeletons";
 import { SuggestionsTable } from "@/components/suggestions-table";
 import { auth } from "@/lib/auth";
 import { getMapById } from "@/lib/db/queries/map";
@@ -22,12 +26,18 @@ export default async function SuggestionsPage({
     }
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+            fallback={
+                <NoMapSidebarShellSkeleton titleWidth="w-36">
+                    <SuggestionsTableSkeleton />
+                </NoMapSidebarShellSkeleton>
+            }
+        >
             <NoMapSidebar page="Map Suggestions">
                 <div className="flex flex-row justify-between">
                     <h1 className="text-2xl">Suggestions</h1>
                 </div>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<SuggestionsTableSkeleton />}>
                     <SuggestionsTable mapId={mapid} />
                 </Suspense>
             </NoMapSidebar>

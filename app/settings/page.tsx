@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { NoMapSidebar } from "@/components/nomapsidebar";
+import { NoMapSidebarShellSkeleton } from "@/components/skeletons";
 import UserDetails from "@/components/userdetails";
 import { auth } from "@/lib/auth";
 
@@ -14,7 +15,7 @@ export default async function SettingsPage() {
     }
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<NoMapSidebarShellSkeleton titleWidth="w-24" />}>
             <NoMapSidebar page="Settings">
                 <div className="flex flex-row justify-between">
                     <h1 className="text-2xl">Settings</h1>

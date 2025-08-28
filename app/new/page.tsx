@@ -3,6 +3,10 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { CreateMapForm } from "@/components/createmapform/createmapform";
 import { NoMapSidebar } from "@/components/nomapsidebar";
+import {
+    NoMapSidebarShellSkeleton,
+    SimpleFormSkeleton,
+} from "@/components/skeletons";
 import { auth } from "@/lib/auth";
 
 export default async function Page() {
@@ -15,7 +19,13 @@ export default async function Page() {
     }
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+            fallback={
+                <NoMapSidebarShellSkeleton titleWidth="w-40">
+                    <SimpleFormSkeleton rows={6} />
+                </NoMapSidebarShellSkeleton>
+            }
+        >
             <NoMapSidebar page="New Map">
                 <h1 className="text-2xl">Create a New Map</h1>
                 <CreateMapForm />
