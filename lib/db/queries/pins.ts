@@ -82,6 +82,39 @@ export async function createPin(data: {
     });
 }
 
+export async function createPinProvideCreator(data: {
+    title: string;
+    description?: string;
+    link?: string;
+    address: string;
+    latitude: number;
+    longitude: number;
+    mapId: string;
+    creatorId: string | null;
+}) {
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+    if (!session) {
+        throw new Error("No session found");
+    }
+
+    // Check if is owner of map
+    const mapOwner = await db
+        .select()
+        .from(map)
+        .where(eq(map.id, data.mapId))
+        .limit(1);
+
+    if (!mapOwner || mapOwner[0].ownerId !== session.user.id) {
+        throw new Error("Not authorized");
+    }
+
+    await db.insert(pin).values({
+        ...data,
+    });
+}
+
 export async function updatePin(data: {
     pinId: string;
     title: string;

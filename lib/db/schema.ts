@@ -97,9 +97,7 @@ export const pin = pgTable("pin", {
     updatedAt: timestamp("updated_at").$defaultFn(
         () => /* @__PURE__ */ new Date(),
     ),
-    creatorId: text()
-        .notNull()
-        .references(() => user.id),
+    creatorId: text().references(() => user.id, { onDelete: "set null" }),
     address: text(),
     latitude: doublePrecision().notNull(),
     longitude: doublePrecision().notNull(),

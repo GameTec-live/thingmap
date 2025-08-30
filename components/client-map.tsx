@@ -90,7 +90,7 @@ export function ClientMap({
                             </Button>
                         </SheetTitle>
                         <SheetDescription>
-                            {`by ${selectedPin?.creatorname}`}
+                            {`by ${selectedPin?.creatorname ?? "unknown"}`}
                         </SheetDescription>
                     </SheetHeader>
                     <div className="flex flex-row gap-4 text-sm text-muted-foreground ml-4">

@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import { db } from "@/lib";
 import { auth } from "@/lib/auth";
 import { map, suggestion, user } from "../schema";
-import { createPin } from "./pins";
+import { createPinProvideCreator } from "./pins";
 
 export async function submitPinSuggestion(data: {
     title: string;
@@ -90,6 +90,7 @@ export async function applySuggestion(suggestionId: string) {
             longitude: suggestion.longitude,
             mapId: suggestion.mapId,
             ownerId: map.ownerId,
+            userId: suggestion.userId,
         })
         .from(suggestion)
         .leftJoin(map, eq(suggestion.mapId, map.id))
@@ -106,7 +107,7 @@ export async function applySuggestion(suggestionId: string) {
 
     const s = rows[0];
 
-    await createPin({
+    await createPinProvideCreator({
         title: s.title,
         description: s.description ?? undefined,
         link: s.link ?? undefined,
@@ -114,6 +115,7 @@ export async function applySuggestion(suggestionId: string) {
         latitude: s.latitude,
         longitude: s.longitude,
         mapId: s.mapId,
+        creatorId: s.userId,
     });
 
     await db.delete(suggestion).where(eq(suggestion.id, suggestionId));

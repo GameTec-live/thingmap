@@ -43,7 +43,7 @@ export async function LocationTable({ mapId }: { mapId: string }) {
                                 {pin.description}
                             </TableCell>
                             <TableCell className="truncate max-w-32">
-                                {pin.creatorname}
+                                {pin.creatorname ?? "unknown"}
                             </TableCell>
                             <TableCell className="whitespace-nowrap">
                                 {pin.latitude}° N, {pin.longitude}° W
