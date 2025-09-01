@@ -21,9 +21,11 @@ import type { GetAllMapsQueryResult } from "@/lib/db/queries/map";
 export function MapSwitcher({
     maps,
     currentMapId,
+    allowMapCreation,
 }: {
     maps: GetAllMapsQueryResult;
     currentMapId: string;
+    allowMapCreation: boolean;
 }) {
     const { isMobile } = useSidebar();
 
@@ -73,17 +75,21 @@ export function MapSwitcher({
                                 </DropdownMenuItem>
                             </Link>
                         ))}
-                        <DropdownMenuSeparator />
-                        <Link href={"/new"}>
-                            <DropdownMenuItem className="gap-2 p-2">
-                                <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
-                                    <Plus className="size-4" />
-                                </div>
-                                <div className="text-muted-foreground font-medium">
-                                    Create a map
-                                </div>
-                            </DropdownMenuItem>
-                        </Link>
+                        {allowMapCreation && (
+                            <>
+                                <DropdownMenuSeparator />
+                                <Link href={"/new"}>
+                                    <DropdownMenuItem className="gap-2 p-2">
+                                        <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
+                                            <Plus className="size-4" />
+                                        </div>
+                                        <div className="text-muted-foreground font-medium">
+                                            Create a map
+                                        </div>
+                                    </DropdownMenuItem>
+                                </Link>
+                            </>
+                        )}
                     </DropdownMenuContent>
                 </DropdownMenu>
             </SidebarMenuItem>

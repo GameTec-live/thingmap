@@ -73,7 +73,11 @@ export function AppSidebar({
     return (
         <Sidebar {...props}>
             <SidebarHeader>
-                <MapSwitcher maps={maps} currentMapId={currentMapId} />
+                <MapSwitcher
+                    maps={maps}
+                    currentMapId={currentMapId}
+                    allowMapCreation={allowMapCreation}
+                />
                 <Card>
                     <CardHeader>
                         <CardTitle>Info about {currentMap?.name} </CardTitle>

@@ -79,7 +79,6 @@ export function NavFavourites({
                                                     <Link
                                                         href={`/map/${fav.mapId}?pin=${pin.pinId}`}
                                                     >
-                                                        {" "}
                                                         <span>
                                                             {pin.pinTitle}
                                                         </span>
