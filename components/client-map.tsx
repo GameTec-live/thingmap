@@ -129,12 +129,17 @@ export function ClientMap({
                             {selectedPin?.link && (
                                 <>
                                     <a
-                                        className="underline flex flex-row gap-1 items-center"
+                                        className="underline inline-flex items-start gap-1 max-w-full"
                                         href={selectedPin?.link ?? undefined}
                                         target="_blank"
                                     >
-                                        {selectedPin?.link}
-                                        <ExternalLink size={16} />
+                                        <span className="break-all max-w-full">
+                                            {selectedPin?.link}
+                                        </span>
+                                        <ExternalLink
+                                            size={16}
+                                            className="flex-shrink-0 mt-0.5"
+                                        />
                                     </a>
 
                                     <p className="text-xs text-muted-foreground">
